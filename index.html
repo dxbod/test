@@ -23,6 +23,50 @@
 
 <h1>My First Heading</h1>
 <p>My first paragraph.</p>
+  var pixelId = '726917912521868';
+var accessToken = 'EAANvfIaQEZBcBAAY5DWC8RClf4AOTdi5v13sXShZC07kecPVxrZAcalhHbYwvHm0iiCbiR2XLplcm0QWQYhi9wo4dUcZCGL4ecsHunfaJNnwvZB5djsluk8PGx0JliZCtG09IrmfuzZCgHlbl7TZBKj7IF8eURydDiwZAsYlHPvlGz24zdtqmeLgStlSw5u3FYTcZD';
 
+// Tworzenie nowego obiektu XMLHttpRequest
+var xhr = new XMLHttpRequest();
+
+// Endpoint URL do wysyłania eventów pixela
+var url = 'https://graph.facebook.com/v15.0/' + pixelId + '/events';
+
+// Dane zdarzenia do wysłania
+var eventData = {
+  "data": [
+    {
+      "action_source": "website",
+      "event_id": 12345,
+      "event_name": "TestEventPPP",
+      "event_time": Math.floor(Date.now() / 1000),
+      "user_data": {
+        "client_user_agent": navigator.userAgent,
+        "em": "f660ab912ec121d1b1e928a0bb4bc61b15f5ad44d5efdc4e1c92a25e99b8e44a"
+      }
+    }
+  ],
+  "test_event_code": "TEST44457"
+};
+
+// Przygotowanie danych do wysłania w formacie JSON
+var requestData = JSON.stringify(eventData);
+
+// Ustawienie metody i adresu URL
+xhr.open('POST', url, true);
+
+// Ustawienie nagłówków żądania
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+
+// Obsługa zdarzenia dla zmiany stanu żądania
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log('Event został wysłany pomyślnie!');
+  }
+};
+
+// Wysłanie żądania
+xhr.send(requestData);
 </body>
 </html>
